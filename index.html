@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BANGER — The Legend Begins. A Robinhood-inspired meme coin from the hood." />
+  <meta name="theme-color" content="#000000" />
+  <title>BANGER — The Legend Begins</title>
+
+  <!-- ============ Preconnect + Fonts ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Comic+Neue:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       AMBIENT BACKGROUND LAYERS
+       (moving gradient, blurred neon circles, floating particles,
+        subtle noise film — all fixed, non-interactive)
+       ============================================================ -->
+  <div class="bg-layer bg-gradient" aria-hidden="true"></div>
+  <div class="bg-layer bg-blur-circles" aria-hidden="true">
+    <span class="blur-circle blur-circle--1"></span>
+    <span class="blur-circle blur-circle--2"></span>
+    <span class="blur-circle blur-circle--3"></span>
+  </div>
+  <div class="bg-layer bg-particles" id="particles" aria-hidden="true"></div>
+  <div class="bg-layer bg-noise" aria-hidden="true"></div>
+
+
+  <!-- ============================================================
+       HEADER — transparent, becomes blurred glass on scroll
+       ============================================================ -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a class="site-header__logo" href="#top" aria-label="BANGER — home">
+        <img src="assets/logo.png" alt="BANGER" width="44" height="44" />
+      </a>
+
+      <a
+        class="btn-glass"
+        href="https://x.com/BangerHood_"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Follow BANGER on X"
+      >
+        <svg class="btn-glass__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M18.244 2H21.5l-7.5 8.575L22.5 22h-6.844l-5.36-7.006L4.156 22H.9l8.02-9.166L.5 2h6.938l4.844 6.4L18.244 2Zm-1.2 18h1.86L7.05 4H5.06l11.984 16Z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Follow</span>
+      </a>
+    </div>
+  </header>
+
+
+  <main id="top">
+
+    <!-- ============================================================
+         HERO — banner image placeholder only
+         (image swaps in at assets/banner.png)
+         ============================================================ -->
+    <section class="hero" aria-label="Hero banner">
+      <!-- Banner Placeholder -->
+      <img class="hero__banner" src="assets/banner.png" alt="" />
+    </section>
+
+
+    <!-- ============================================================
+         TITLE — massive BANGER wordmark + tagline
+         ============================================================ -->
+    <section class="title-section" aria-labelledby="brand-title">
+      <h1 class="brand-title" id="brand-title" aria-label="BANGER">
+        <span class="brand-title__letter">B</span>
+        <span class="brand-title__letter">A</span>
+        <span class="brand-title__letter">N</span>
+        <span class="brand-title__letter">G</span>
+        <span class="brand-title__letter">E</span>
+        <span class="brand-title__letter">R</span>
+      </h1>
+      <p class="brand-tagline">The Legend Begins</p>
+      <div class="title-divider" aria-hidden="true"></div>
+    </section>
+
+
+    <!-- ============================================================
+         COMIC — six lazy-loaded panels, ~850px max width
+         ============================================================ -->
+    <section class="comic-section" aria-label="Comic panels">
+      <figure class="comic-panel">
+        <img src="assets/comic/panel1.png" alt="Comic panel 1" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="comic-panel">
+        <img src="assets/comic/panel2.png" alt="Comic panel 2" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="comic-panel">
+        <img src="assets/comic/panel3.png" alt="Comic panel 3" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="comic-panel">
+        <img src="assets/comic/panel4.png" alt="Comic panel 4" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="comic-panel">
+        <img src="assets/comic/panel5.png" alt="Comic panel 5" loading="lazy" decoding="async" />
+      </figure>
+      <figure class="comic-panel">
+        <img src="assets/comic/panel6.png" alt="Comic panel 6" loading="lazy" decoding="async" />
+      </figure>
+    </section>
+
+
+    <!-- ============================================================
+         STORY — the legend, formatted for cinematic reading
+         ============================================================ -->
+    <section class="story-section" aria-labelledby="story-title">
+      <h2 class="story-title" id="story-title">The Legend of Banger</h2>
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story">
+        <p class="story__p">They said the streets had no heroes left.</p>
+
+        <p class="story__p">
+          The whales had taken everything — the charts, the pumps, the dreams of the little ones who just wanted a shot.
+        </p>
+
+        <p class="story__p">Every green candle was a lie.</p>
+        <p class="story__p">Every rally was a trap.</p>
+
+        <p class="story__p">The hood was quiet.</p>
+        <p class="story__p">The hood was tired.</p>
+
+        <p class="story__p story__p--break">Then he showed up.</p>
+
+        <p class="story__p">
+          A small guinea pig from nowhere, wearing black shades and an oversized hoodie two sizes too big.
+        </p>
+
+        <p class="story__p">No name.</p>
+        <p class="story__p">No crew.</p>
+
+        <p class="story__p">
+          Just a chain around his neck with a green arrow pointing up — a symbol the whales thought they had killed a long time ago.
+        </p>
+
+        <p class="story__p">They laughed at him first.</p>
+
+        <p class="story__p story__p--quote">
+          “Look at this little one. He thinks he can move the market.”
+        </p>
+
+        <p class="story__p">They stopped laughing when the candles started turning green.</p>
+
+        <p class="story__p">He didn’t trade like them.</p>
+        <p class="story__p">He didn’t chase pumps or dump on friends.</p>
+        <p class="story__p">He moved for the ones who couldn’t move for themselves.</p>
+
+        <p class="story__p">He bought when everyone else ran.</p>
+        <p class="story__p">He held when everyone else folded.</p>
+
+        <p class="story__p">
+          And every time a whale tried to crush the little guys, he was already there —
+        </p>
+
+        <p class="story__p story__p--indent">quiet,</p>
+        <p class="story__p story__p--indent">sunglasses down,</p>
+        <p class="story__p story__p--indent">chain glowing.</p>
+
+        <p class="story__p">The streets started whispering his name.</p>
+
+        <p class="story__p story__p--shout">BANGER.</p>
+
+        <p class="story__p">Not a hero.</p>
+        <p class="story__p">Not a saint.</p>
+
+        <p class="story__p">
+          Just the reminder that the smallest one in the room can still shake the whole game — as long as he refuses to stay small.
+        </p>
+
+        <p class="story__p">Today, the hood is loud again.</p>
+        <p class="story__p">The chain is heavy.</p>
+        <p class="story__p">The arrow points up.</p>
+
+        <p class="story__p story__p--final">And BANGER is only getting started.</p>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         FOOTER — minimal
+         ============================================================ -->
+    <footer class="site-footer">
+      <p class="site-footer__mark">© BANGER</p>
+      <a
+        class="site-footer__link"
+        href="https://x.com/BangerHood_"
+        target="_blank"
+        rel="noopener noreferrer"
+        >@BangerHood_</a>
+    </footer>
+  </main>
+
+
+  <!-- ============ GSAP + ScrollTrigger ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
