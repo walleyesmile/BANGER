@@ -341,7 +341,55 @@ button { font: inherit; cursor: pointer; }
   box-shadow: 0 0 12px var(--c-neon-glow);
 }
 
+/* Status pill — •ACTIVE */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 1.75rem auto 0;
+  padding: 0.45rem 1rem 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(200, 255, 0, 0.06);
+  border: 1px solid rgba(200, 255, 0, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--f-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-neon);
+}
 
+.status-badge__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-neon);
+  box-shadow: 0 0 8px var(--c-neon-soft);
+  animation: statusPulse 1.8s ease-in-out infinite;
+}
+
+.status-badge__dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: var(--c-neon);
+  opacity: 0.5;
+  animation: statusRing 1.8s ease-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 8px var(--c-neon-soft); }
+  50%      { box-shadow: 0 0 16px var(--c-neon), 0 0 32px var(--c-neon-glow); }
+}
+
+@keyframes statusRing {
+  0%   { transform: scale(0.6); opacity: 0.55; }
+  100% { transform: scale(2.4); opacity: 0; }
+                   }
 /* ================================================================
    7. COMIC — six panels, ~850px column
    ================================================================ */
