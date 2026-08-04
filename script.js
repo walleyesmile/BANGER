@@ -201,6 +201,16 @@
         '-=0.5'
       );
     }
+
+     const badge = $('.status-badge');
+    if (badge) {
+      tl.from(
+        badge,
+        { opacity: 0, y: 12, scale: 0.9, duration: 0.7 },
+        '-=0.3'
+      );
+    }
+     
     if (divider) {
       tl.from(
         divider,
