@@ -29,6 +29,7 @@
     // Non-GSAP first (still works if GSAP fails to load)
     setupParticles();
     setupHeaderScroll();
+    setupSmoothScroll();
 
     if (typeof gsap === 'undefined') return;
 
@@ -109,33 +110,37 @@
     });
   }
 
-
   /* ================================================================
-     Header — glass blur once user scrolls
+     Smooth scroll (Lenis) — synced with GSAP ticker
      ================================================================ */
-  function setupHeaderScroll() {
-    const header = document.getElementById('siteHeader');
-    if (!header) return;
+  function setupSmoothScroll() {
+    if (typeof Lenis === 'undefined' || prefersReducedMotion) return;
 
-    let ticking = false;
-    const update = () => {
-      if (window.scrollY > 32) header.classList.add('is-scrolled');
-      else header.classList.remove('is-scrolled');
-      ticking = false;
-    };
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
+    });
 
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
-    update();
-  }
+    if (typeof gsap !== 'undefined') {
+      lenis.on('scroll', () => {
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
+      });
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
+
+    window.__lenis = lenis;
+         }
 
 
   /* ================================================================
