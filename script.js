@@ -19,7 +19,7 @@
      Kosong = tombol ke landing generic, stats "—".
      Diisi = tombol ke token $BANGER, stats live dari DexScreener.
   ================================== */
-  const CONTRACT_ADDRESS = '0x16679E025336c74C2890f765ade4dDB68602dc39';
+  const CONTRACT_ADDRESS = '0x3aE3faCC99F43D5A39254A0b9f5cc0291ECd39cc';
   const STATS_REFRESH_MS = 30000;
    
   /* ---------- Helpers ---------- */
