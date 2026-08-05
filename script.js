@@ -14,6 +14,14 @@
 (function () {
   'use strict';
 
+   /* ============ CONFIG ============
+     Isi CONTRACT_ADDRESS setelah $BANGER launch (0x...).
+     Kosong = tombol ke landing generic, stats "—".
+     Diisi = tombol ke token $BANGER, stats live dari DexScreener.
+  ================================== */
+  const CONTRACT_ADDRESS = '';
+  const STATS_REFRESH_MS = 30000;
+   
   /* ---------- Helpers ---------- */
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
@@ -46,6 +54,8 @@
     setupStoryReveal();
     setupEcosystemReveal();
     setupButtonGlow();
+    setupBuyLinks();
+    setupLiveStats();
 
     // Recalculate positions once fonts and images settle
     window.addEventListener('load', () => {
@@ -346,4 +356,75 @@
     });
   }
 
+   function setupBuyLinks() {
+  if (!CONTRACT_ADDRESS || !CONTRACT_ADDRESS.startsWith('0x')) return;
+
+  const pons    = document.querySelector('[data-buy="pons"]');
+  const uniswap = document.querySelector('[data-buy="uniswap"]');
+
+  if (pons) {
+    pons.href = `https://www.ponsfamily.com/token/${CONTRACT_ADDRESS}`;
+  }
+  if (uniswap) {
+    uniswap.href = `https://app.uniswap.org/swap?chain=robinhood&outputCurrency=${CONTRACT_ADDRESS}`;
+  }
+}
+
+function setupLiveStats() {
+  if (!document.querySelector('.stats')) return;
+  if (!CONTRACT_ADDRESS || !CONTRACT_ADDRESS.startsWith('0x')) return;
+
+  fetchStats();
+  setInterval(fetchStats, STATS_REFRESH_MS);
+}
+
+async function fetchStats() {
+  try {
+    const res = await fetch(
+      `https://api.dexscreener.com/latest/dex/tokens/${CONTRACT_ADDRESS}`
+    );
+    const data = await res.json();
+    const pair = (data.pairs || []).sort(
+      (a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0)
+    )[0];
+    if (!pair) return;
+
+    const price  = parseFloat(pair.priceUsd);
+    const change = pair.priceChange?.h24 ?? 0;
+    const vol    = pair.volume?.h24 ?? 0;
+    const mcap   = pair.marketCap ?? pair.fdv ?? 0;
+
+    setStat('price',     formatPrice(price));
+    setStat('change',    (change >= 0 ? '+' : '') + change.toFixed(2) + '%',
+                          change >= 0 ? 'up' : 'down');
+    setStat('volume',    '$' + formatCompact(vol));
+    setStat('marketcap', '$' + formatCompact(mcap));
+    setStat('updated',   'just now');
+  } catch (err) {
+    console.warn('Stats fetch failed', err);
+  }
+}
+
+function setStat(key, text, tone) {
+  const el = document.querySelector(`[data-stat="${key}"]`);
+  if (!el) return;
+  el.textContent = text;
+  el.classList.remove('stats__value--up', 'stats__value--down');
+  if (tone) el.classList.add('stats__value--' + tone);
+}
+
+function formatPrice(n) {
+  if (!n) return '—';
+  if (n < 0.01) return '$' + n.toFixed(8).replace(/0+$/, '');
+  if (n < 1)    return '$' + n.toFixed(4);
+  return '$' + n.toFixed(2);
+}
+
+function formatCompact(n) {
+  if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(2) + 'K';
+  return n.toFixed(0);
+     }
+   
 })();
