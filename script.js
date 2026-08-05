@@ -44,6 +44,7 @@
     setupTitleAnimation();
     setupComicReveal();
     setupStoryReveal();
+    setupEcosystemReveal();
     setupButtonGlow();
 
     // Recalculate positions once fonts and images settle
@@ -308,7 +309,27 @@
       });
     });
   }
+   
+/* ================================================================
+     Ecosystem — fade + rise stagger
+     ================================================================ */
+  function setupEcosystemReveal() {
+    const inner = $('.ecosystem__inner');
+    if (!inner) return;
 
+    gsap.set(inner.children, { opacity: 0, y: 20 });
+    gsap.to(inner.children, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.12,
+      scrollTrigger: {
+        trigger: inner,
+        start: 'top 85%',
+        once: true,
+      },
+    });
+  }
 
   /* ================================================================
      Glass button — subtle scale on hover
