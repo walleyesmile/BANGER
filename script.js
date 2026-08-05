@@ -371,15 +371,26 @@
 }
 
 function setupLiveStats() {
-  if (!document.querySelector('.stats')) return;
-  if (!CONTRACT_ADDRESS) return;
+  const updateEl = document.querySelector('[data-stat="updated"]');
+  const setStatus = (msg) => { if (updateEl) updateEl.textContent = msg; };
 
+  setStatus('setup running');
+
+  if (!document.querySelector('.stats')) {
+    setStatus('no .stats element');
+    return;
+  }
+  if (!CONTRACT_ADDRESS) {
+    setStatus('contract empty');
+    return;
+  }
+
+  setStatus('starting fetch (' + CONTRACT_ADDRESS.slice(0, 6) + '...)');
   fetchStats();
   setInterval(fetchStats, STATS_REFRESH_MS);
 }
 
-async function fetchStats() {
-async function fetchStats() {
+  async function fetchStats() {
   const updateEl = document.querySelector('[data-stat="updated"]');
   const setStatus = (msg) => { if (updateEl) updateEl.textContent = msg; };
 
