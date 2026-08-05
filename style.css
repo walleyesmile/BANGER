@@ -524,6 +524,85 @@ button { font: inherit; cursor: pointer; }
   text-align: center;
 }
 
+/* ================================================================
+   Ecosystem strip — partners rail above footer
+   ================================================================ */
+.ecosystem {
+  position: relative;
+  z-index: 1;
+  max-width: var(--hero-max);
+  margin: 0 auto;
+  padding: 4rem var(--gutter) 5rem;
+}
+
+.ecosystem__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.ecosystem__label {
+  margin: 0;
+  font-family: var(--f-head);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--c-neon);
+  opacity: 0.9;
+}
+
+.ecosystem__divider {
+  width: 1px;
+  height: 32px;
+  background: var(--c-line);
+}
+
+.ecosystem__logos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ecosystem__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: rgba(200, 255, 0, 0.04);
+  border: 1px solid var(--c-line);
+  overflow: hidden;
+  transition:
+    transform 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.ecosystem__item:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-neon-soft);
+  box-shadow: 0 0 24px var(--c-neon-glow);
+}
+
+.ecosystem__item img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .ecosystem__divider {
+    width: 32px;
+    height: 1px;
+  }
+  .ecosystem__inner { gap: 1.25rem; }
+}
 
 /* ================================================================
    9. FOOTER
