@@ -291,5 +291,67 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="script.js" defer></script>
+
+  <script>
+(function() {
+  var CONTRACT = '0x3aE3faCC99F43D5A39254A0b9f5cc0291ECd39cc';
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Update Buy buttons
+    var pons = document.querySelector('[data-buy="pons"]');
+    var uni  = document.querySelector('[data-buy="uniswap"]');
+    if (pons) pons.href = 'https://www.ponsfamily.com/token/' + CONTRACT;
+    if (uni)  uni.href  = 'https://app.uniswap.org/swap?chain=robinhood&outputCurrency=' + CONTRACT;
+
+    // Start stats fetch
+    doFetch();
+    setInterval(doFetch, 30000);
+  });
+
+  async function doFetch() {
+    try {
+      var res = await fetch('https://api.dexscreener.com/latest/dex/tokens/' + CONTRACT);
+      var data = await res.json();
+      var pairs = data.pairs || [];
+      pairs.sort(function(a,b){ return (b.liquidity && b.liquidity.usd || 0) - (a.liquidity && a.liquidity.usd || 0); });
+      var pair = pairs[0];
+      if (!pair) return;
+
+      var price  = parseFloat(pair.priceUsd);
+      var change = (pair.priceChange && pair.priceChange.h24) || 0;
+      var vol    = (pair.volume && pair.volume.h24) || 0;
+      var mcap   = pair.marketCap || pair.fdv || 0;
+
+      setV('price',     formatP(price));
+      setV('change',    (change >= 0 ? '+' : '') + change.toFixed(2) + '%', change >= 0 ? 'up' : 'down');
+      setV('volume',    '$' + formatC(vol));
+      setV('marketcap', '$' + formatC(mcap));
+      setV('updated',   'just now');
+    } catch(err) { console.warn(err); }
+  }
+
+  function setV(k, t, tone) {
+    var el = document.querySelector('[data-stat="' + k + '"]');
+    if (!el) return;
+    el.textContent = t;
+    el.classList.remove('stats__value--up','stats__value--down');
+    if (tone) el.classList.add('stats__value--' + tone);
+  }
+
+  function formatP(n) {
+    if (!n) return '—';
+    if (n < 0.01) return '$' + n.toFixed(8).replace(/0+$/, '');
+    if (n < 1) return '$' + n.toFixed(4);
+    return '$' + n.toFixed(2);
+  }
+
+  function formatC(n) {
+    if (n >= 1e9) return (n/1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return (n/1e3).toFixed(2) + 'K';
+    return n.toFixed(0);
+  }
+})();
+        </script>
 </body>
 </html>
