@@ -379,23 +379,15 @@ function setupLiveStats() {
 }
 
 async function fetchStats() {
-  const updateEl = document.querySelector('[data-stat="updated"]');
-  const setStatus = (msg) => { if (updateEl) updateEl.textContent = msg; };
-
   try {
-    setStatus('fetching...');
     const res = await fetch(
       `https://api.dexscreener.com/latest/dex/tokens/${CONTRACT_ADDRESS}`
     );
-    setStatus('status ' + res.status);
-
     const data = await res.json();
-    setStatus('pairs: ' + (data.pairs?.length ?? 'null'));
-
     const pair = (data.pairs || []).sort(
       (a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0)
     )[0];
-    if (!pair) { setStatus('no pair!'); return; }
+    if (!pair) return;
 
     const price  = parseFloat(pair.priceUsd);
     const change = pair.priceChange?.h24 ?? 0;
@@ -407,9 +399,8 @@ async function fetchStats() {
                           change >= 0 ? 'up' : 'down');
     setStat('volume',    '$' + formatCompact(vol));
     setStat('marketcap', '$' + formatCompact(mcap));
-    setStatus('just now');
+    setStat('updated',   'just now');
   } catch (err) {
-    setStatus('ERROR: ' + err.message);
     console.warn('Stats fetch failed', err);
   }
 }
