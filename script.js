@@ -372,7 +372,7 @@
 
 function setupLiveStats() {
   if (!document.querySelector('.stats')) return;
-  if (!CONTRACT_ADDRESS || !CONTRACT_ADDRESS.startsWith('0x')) return;
+  if (!CONTRACT_ADDRESS) return;
 
   fetchStats();
   setInterval(fetchStats, STATS_REFRESH_MS);
