@@ -210,13 +210,17 @@ button { font: inherit; cursor: pointer; }
   display: inline-flex;
   align-items: center;
 }
+
 .site-header__logo img {
   height: 44px;
-  width: auto;
+  width: 44px;
+  border-radius: 50%;
+  object-fit: cover;
   filter: drop-shadow(0 0 12px var(--c-neon-glow));
   transition:
     filter 0.3s var(--ease-out),
     transform 0.3s var(--ease-out);
+   
 }
 .site-header__logo:hover img {
   filter: drop-shadow(0 0 20px var(--c-neon));
