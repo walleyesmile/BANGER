@@ -314,6 +314,43 @@
     if (pons) pons.href = 'https://www.ponsfamily.com/token/' + CONTRACT;
     if (uni)  uni.href  = 'https://app.uniswap.org/swap?chain=robinhood&outputCurrency=' + CONTRACT;
 
+    // Contract Address display + click-to-copy
+  var caBtn = document.getElementById('caCopyBtn');
+  var caDisplay = document.getElementById('caDisplay');
+
+  if (caDisplay && CONTRACT) {
+    caDisplay.textContent = CONTRACT.slice(0, 6) + '...' + CONTRACT.slice(-4);
+  }
+
+  if (caBtn) {
+    caBtn.addEventListener('click', function() {
+      if (!CONTRACT) return;
+      var showCopied = function() {
+        caBtn.classList.add('is-copied');
+        setTimeout(function() { caBtn.classList.remove('is-copied'); }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(CONTRACT).then(showCopied).catch(function() {
+          var ta = document.createElement('textarea');
+          ta.value = CONTRACT;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch(e) {}
+          document.body.removeChild(ta);
+          showCopied();
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = CONTRACT;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(ta);
+        showCopied();
+      }
+    });
+  }
+
     // Start stats fetch
     doFetch();
     setInterval(doFetch, 30000);
